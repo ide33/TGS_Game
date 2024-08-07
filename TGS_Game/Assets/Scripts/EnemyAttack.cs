@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackController : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int attackDamage = 10;
 
-    // Update is called once per frame
-    void Update()
+    public bool IsAttacking { get; private set; } // 攻撃中かどうかを判定するフラグ
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            // IsAttacking = true;
+            // PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            // if (playerHealth != null)
+            // {
+            //     playerHealth.TakeDamage(attackDamage);
+            // }
+            // IsAttacking = false; // 攻撃が終了したらフラグをリセット
+        }
+    }
+    public void CancelAttack()
+    {
+        // 攻撃をキャンセルする処理
+        IsAttacking = false;
     }
 }
