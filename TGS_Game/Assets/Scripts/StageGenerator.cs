@@ -8,18 +8,24 @@ public class StageGenerator : MonoBehaviour
     public GameObject riverPrefab;  //川プレハブ
     public GameObject scaffoldPrefab;  //足場プレハブ
     public GameObject playerPrefab;  // プレイヤープレハブ
+    public GameObject enemyPrefab;   // 敵プレハブ
     public int stageWigth = 100;  //ステージの幅
     public float groundHeight = -2.0f;  //地面の高さ
     public float scaffoldHeight = 2.0f;  //足場の高さ
     public float playerSpawnHeight = 3.0f; // プレイヤーのスポーン高さ
     public int safeZoneWidth = 20;   // 最初の安全ゾーンの幅
+    public int enemyCount = 10;      // 敵の数
+    public float enemySpawnHeight = 1.5f; // 敵のスポーン高さ
 
     private bool lastWasRiver = false;  //直前が川オブジェクトかどうか
+    private List<Vector2> spawnPositions = new List<Vector2>(); // 敵のスポーン位置リスト
+    private HashSet<int> usedXPositions = new HashSet<int>(); // 使用済みのX位置リスト
 
     void Start()
     {
         SpawnPlayer();  // プレイヤーをスポーン
         GenerateTerrain(); // 地形を生成
+        SpawnEnemies(); // 敵をスポーン
     }
 
     void SpawnPlayer()
@@ -45,6 +51,7 @@ public class StageGenerator : MonoBehaviour
                 {
                     Instantiate(riverPrefab, new Vector2(i, groundHeight), Quaternion.identity);
                     Instantiate(scaffoldPrefab, new Vector2(i, groundHeight + scaffoldHeight), Quaternion.identity);  //川上空に足場を配置
+                    spawnPositions.Add(new Vector2(i, groundHeight + scaffoldHeight)); // 足場のスポーン位置を追加
                     lastWasRiver = true;  //川オブジェクトを配置したことを記録
                 }
                 else
@@ -54,15 +61,41 @@ public class StageGenerator : MonoBehaviour
                     int groundCount = Random.Range(1, 4);  //ランダムな数の地面オブジェクトを連続生成
                     for (int j = 0; j < groundCount; j++)
                     {
-                        Instantiate(groundPrefab, new Vector2(i + j * 4, groundHeight), Quaternion.identity);
+                        Vector2 groundPosition = new Vector2(i + j * 4, groundHeight);
+                        Instantiate(groundPrefab, groundPosition, Quaternion.identity);
+                        spawnPositions.Add(groundPosition); // 地面のスポーン位置を追加
                     }
 
                     //ランダムに地面オブジェクトを上に積み上げる
                     if (Random.value > 0.5f)
                     {
-                        Instantiate(groundPrefab, new Vector2(i, groundHeight + 1), Quaternion.identity);
+                        Vector2 elevatedGroundPosition = new Vector2(i, groundHeight + 1);
+                        Instantiate(groundPrefab, elevatedGroundPosition, Quaternion.identity);
+                        spawnPositions.Add(elevatedGroundPosition); // 上に積み重ねた地面のスポーン位置を追加
                     }
                 }
+            }
+        }
+    }
+    void SpawnEnemies()
+    {
+        for (int i = 0; i < enemyCount; i++)
+        {
+            if (spawnPositions.Count == 0) break;
+
+            Vector2 spawnPosition;
+            int attempts = 0;
+            do
+            {
+                spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Count)];
+                attempts++;
+            } while (usedXPositions.Contains((int)spawnPosition.x) && attempts < 10);
+
+            if (!usedXPositions.Contains((int)spawnPosition.x))
+            {
+                usedXPositions.Add((int)spawnPosition.x);
+                Vector2 enemySpawnPosition = new Vector2(spawnPosition.x, spawnPosition.y + enemySpawnHeight);
+                Instantiate(enemyPrefab, enemySpawnPosition, Quaternion.identity);
             }
         }
     }

@@ -262,11 +262,14 @@ MonoBehaviour:
   riverPrefab: {fileID: 6531183928374974016, guid: 20d5ef9468679b046a16883d6f08102c, type: 3}
   scaffoldPrefab: {fileID: 7732419305727713651, guid: e9a5cf152c38f764482f225f3dc1de2d, type: 3}
   playerPrefab: {fileID: 6011291899120676651, guid: 8bef865c9f94d4e468ee6ab18888d242, type: 3}
+  enemyPrefab: {fileID: 153923105361021173, guid: 4fe4ff94b4290ba40b1b88eebfa7d111, type: 3}
   stageWigth: 100
   groundHeight: -1
   scaffoldHeight: 3
   playerSpawnHeight: 3
   safeZoneWidth: 20
+  enemyCount: 10
+  enemySpawnHeight: 2
 --- !u!4 &1051179881
 Transform:
   m_ObjectHideFlags: 0

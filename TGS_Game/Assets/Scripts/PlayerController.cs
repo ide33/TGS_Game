@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f; // プレイヤーの速度
     private SpriteRenderer spriteRenderer;
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,11 +24,11 @@ public class PlayerController : MonoBehaviour
     {
         //ADキーによる左右移動
         float move = 0;
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             move = -1;
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             move = 1;
         }
