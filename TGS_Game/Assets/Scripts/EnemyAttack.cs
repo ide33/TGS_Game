@@ -12,13 +12,13 @@ public class EnemyAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // IsAttacking = true;
-            // PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            // if (playerHealth != null)
-            // {
-            //     playerHealth.TakeDamage(attackDamage);
-            // }
-            // IsAttacking = false; // 攻撃が終了したらフラグをリセット
+            IsAttacking = true;
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(attackDamage);
+            }
+            IsAttacking = false;  // 攻撃が終了したらフラグをリセット
         }
     }
     public void CancelAttack()

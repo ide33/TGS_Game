@@ -28,18 +28,18 @@ public class AttackController : MonoBehaviour
         {
             if (enemy.CompareTag("Enemy"))
             {
-                // Enemy enemyHealth = enemy.GetComponent<Enemy>();
-                // if (enemyHealth != null)
-                // {
-                //     enemyHealth.TakeDamage(attackDamage);
+                Enemy enemyHealth = enemy.GetComponent<Enemy>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(attackDamage);
 
-                //     // 攻撃判定を相殺する処理
-                //     EnemyAttack enemyAttack = enemy.GetComponent<EnemyAttack>();
-                //     if (enemyAttack != null && enemyAttack.IsAttacking)
-                //     {
-                //         enemyAttack.CancelAttack();
-                //     }
-                // }
+                    // 攻撃判定を相殺する処理
+                    EnemyAttack enemyAttack = enemy.GetComponent<EnemyAttack>();
+                    if (enemyAttack != null && enemyAttack.IsAttacking)
+                    {
+                        enemyAttack.CancelAttack();
+                    }
+                }
             }
         }
     }
