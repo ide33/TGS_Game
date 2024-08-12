@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1074968362098196000}
-  attackRange: 2
+  attackRange: 1.5
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -238,5 +238,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
+  currentHealth: 100
   healthSliderPrefab: {fileID: 987790839402905481, guid: ef30b9311ab40ab408b8abde8139067b, type: 3}
