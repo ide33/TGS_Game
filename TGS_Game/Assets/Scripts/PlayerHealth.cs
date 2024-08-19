@@ -7,22 +7,16 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;  // 最大HP
-    public int currentHealth;    // 現在のHP
-    public GameObject healthSliderPrefab; // プレハブ化されたスライダー
-    private Slider healthSlider;       // 実際にインスタンス化されたスライダー
+    public int currentHealth;   // 現在のHP
+    public Slider healthSlider;   
 
     void Start()
     {
-       // ゲーム開始時に最大HPで初期化
+        // ゲーム開始時に最大HPで初期化
         currentHealth = maxHealth;
-
-        // スライダーのインスタンスを生成し、プレイヤーに関連付け
-        GameObject sliderInstance = Instantiate(healthSliderPrefab, transform.position, Quaternion.identity);
-        sliderInstance.transform.SetParent(transform, false); // プレイヤーオブジェクトの子オブジェクトに設定
-        healthSlider = sliderInstance.GetComponent<Slider>(); // スライダーコンポーネントを取得
-
-        // 初期状態のHPをスライダーに反映
-        UpdateHealthUI();
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        // UpdateHealthUI();
     }
 
     void Update()
@@ -47,10 +41,7 @@ public class PlayerHealth : MonoBehaviour
     // HPゲージを更新する関数
     void UpdateHealthUI()
     {
-        if (healthSlider != null)
-        {
-            healthSlider.value = (float)currentHealth / maxHealth;
-        }
+        healthSlider.value = currentHealth;
     }
 
     void GameOver()

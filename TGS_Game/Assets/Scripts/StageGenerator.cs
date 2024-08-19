@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
 {
+    public GameObject player;  //プレイヤーオブジェクトの参照
+    public float playerSpawnHeight = 3.0f;  //スポーンの高さ
     public GameObject groundPrefab;  //地面プレハブ
     public GameObject riverPrefab;  //川プレハブ
     public GameObject scaffoldPrefab;  //足場プレハブ
-    public GameObject playerPrefab;  // プレイヤープレハブ
     public GameObject enemyPrefab;   // 敵プレハブ
+    public GameObject goalPrefab;  // ゴールプレハブ
     public int stageWigth = 100;  //ステージの幅
     public float groundHeight = -2.0f;  //地面の高さ
     public float scaffoldHeight = 2.0f;  //足場の高さ
-    public float playerSpawnHeight = 3.0f; // プレイヤーのスポーン高さ
     public int safeZoneWidth = 20;   // 最初の安全ゾーンの幅
     public int enemyCount = 10;      // 敵の数
     public float enemySpawnHeight = 1.5f; // 敵のスポーン高さ
@@ -21,16 +22,19 @@ public class StageGenerator : MonoBehaviour
     private List<Vector2> spawnPositions = new List<Vector2>(); // 敵のスポーン位置リスト
     private HashSet<int> usedXPositions = new HashSet<int>(); // 使用済みのX位置リスト
 
+    private List<GameObject> activeEnemies = new List<GameObject>(); //アクティブな敵を追跡リスト
+
     void Start()
     {
-        SpawnPlayer();  // プレイヤーをスポーン
+        SetPlayerInitialPosition();  //プレイヤーの初期位置を設定
         GenerateTerrain(); // 地形を生成
         SpawnEnemies(); // 敵をスポーン
     }
 
-    void SpawnPlayer()
+    void SetPlayerInitialPosition()
     {
-        Instantiate(playerPrefab, new Vector2(0, groundHeight + playerSpawnHeight), Quaternion.identity);
+        //プレイヤーの位置を直接設定
+        player.transform.position = new Vector2(0, playerSpawnHeight);
     }
 
     void GenerateTerrain()
@@ -79,6 +83,8 @@ public class StageGenerator : MonoBehaviour
     }
     void SpawnEnemies()
     {
+        ClearExistingEnemies(); //新しい敵をスポーンさせる前に既存の敵を消滅させる
+
         for (int i = 0; i < enemyCount; i++)
         {
             if (spawnPositions.Count == 0) break;
@@ -96,7 +102,32 @@ public class StageGenerator : MonoBehaviour
                 usedXPositions.Add((int)spawnPosition.x);
                 Vector2 enemySpawnPosition = new Vector2(spawnPosition.x, spawnPosition.y + enemySpawnHeight);
                 Instantiate(enemyPrefab, enemySpawnPosition, Quaternion.identity);
+                activeEnemies.Add(enemyPrefab);  //アクティブな敵を追跡
             }
         }
+    }
+
+    void ClearExistingEnemies()
+    {
+        foreach (GameObject enemy in activeEnemies)
+        {
+            Destroy(enemy);  //現在アクティブな敵を全て破壊
+        }
+        activeEnemies.Clear();  //リストをクリア
+        usedXPositions.Clear();  //使用したポジションをリセット
+    }
+
+    // 敵をリスポーンする関数
+    public void RespawnEnemies()
+    {
+        // 既存の敵を全て破棄
+        GameObject[] existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in existingEnemies)
+        {
+            Destroy(enemy);
+        }
+
+        // 敵を再生成
+        SpawnEnemies();
     }
 }
