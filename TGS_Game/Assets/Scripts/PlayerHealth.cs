@@ -8,15 +8,18 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;  // 最大HP
     public int currentHealth;   // 現在のHP
-    public Slider healthSlider;   
+    public Slider healthSlider;
+    public AudioClip hitSound;   //ダメージ効果音
+    private AudioSource audioSource;   
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        
         // ゲーム開始時に最大HPで初期化
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
-        // UpdateHealthUI();
     }
 
     void Update()
@@ -36,6 +39,12 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
         }
         UpdateHealthUI();
+        PlayHitSound();
+    }
+
+    void PlayHitSound()
+    {
+        audioSource.PlayOneShot(hitSound);
     }
 
     // HPゲージを更新する関数

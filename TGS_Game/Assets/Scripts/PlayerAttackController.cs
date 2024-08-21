@@ -8,6 +8,13 @@ public class AttackController : MonoBehaviour
     public float attackRange = 2.0f; // 攻撃の範囲
     public LayerMask enemyLayers; // 攻撃が当たる敵のレイヤー
     public int attackDamage = 10; // 攻撃力
+    public AudioClip attackSound;  //攻撃時の効果音
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -20,6 +27,9 @@ public class AttackController : MonoBehaviour
 
     void Attack()
     {
+        //攻撃するときに呼び出されるメソッド
+        PlayAttackSound();
+
         // 攻撃の範囲内にいる敵を検出
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, 2.0f);
 
@@ -44,11 +54,16 @@ public class AttackController : MonoBehaviour
         }
     }
 
+    void PlayAttackSound()
+    {
+        audioSource.PlayOneShot(attackSound);
+    }
+
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
             return;
-            
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }

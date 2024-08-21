@@ -7,7 +7,6 @@ public class PlayerRespawn : MonoBehaviour
     public Vector3 respawnPosition;  // リスポーン位置
     public int respawnDamage = 20;   // リスポーン時のダメージ量
     private PlayerHealth playerHealth;  // プレイヤーのHP管理スクリプトへの参照
-    public GameObject playerPrefab;   // プレイヤープレハブ
     public Transform respawnPoint;    // リスポーン地点
     private StageGenerator stageGenerator;  // ステージ生成スクリプトの参照
 
