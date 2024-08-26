@@ -51,12 +51,25 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
             isGrounded = true;
         }
+
+        // 足場に着地したらジャンプ回数をリセット
+        if (collision.gameObject.CompareTag("Scaffold"))
+        {
+            jumpCount = 0;
+            isGrounded = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         // 地面から離れたら地面にいないことを設定
         if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+
+        // 足場から離れたら地面にいないことを設定
+        if (collision.gameObject.CompareTag("Scaffold"))
         {
             isGrounded = false;
         }

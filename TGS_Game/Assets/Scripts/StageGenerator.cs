@@ -12,8 +12,9 @@ public class StageGenerator : MonoBehaviour
     public GameObject enemyPrefab;   // 敵プレハブ
     public int stageWigth = 100;  //ステージの幅
     public float groundHeight = -2.0f;  //地面の高さ
+    public float riverHeight = 20.0f;  //川の高さ
     public float scaffoldHeight = 2.0f;  //足場の高さ
-    public int safeZoneWidth = 20;   // 最初の安全ゾーンの幅
+    public int safeZoneWidth = 10;   // 最初の安全ゾーンの幅
     public int enemyCount = 10;      // 敵の数
     public float enemySpawnHeight = 1.5f; // 敵のスポーン高さ
 
