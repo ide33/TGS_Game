@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - River
   - Scaffold
+  - GM
   layers:
   - Default
   - TransparentFX

@@ -464,7 +464,7 @@ MonoBehaviour:
   respawnPosition: {x: 0, y: 0, z: 0}
   respawnDamage: 20
   respawnPoint: {fileID: 16920051}
-  player: {fileID: 862981087}
+  player: {fileID: 0}
   updateDistance: 50
 --- !u!114 &862981081
 MonoBehaviour:
@@ -859,9 +859,10 @@ GameObject:
   - component: {fileID: 1051179880}
   - component: {fileID: 1051179882}
   - component: {fileID: 1051179883}
+  - component: {fileID: 1051179884}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1016,6 +1017,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1051179884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051179879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b476bae7fa8a1d44a80b3678cabc35df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1166377035
 GameObject:
   m_ObjectHideFlags: 0
