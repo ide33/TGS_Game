@@ -464,7 +464,7 @@ MonoBehaviour:
   respawnPosition: {x: 0, y: 0, z: 0}
   respawnDamage: 20
   respawnPoint: {fileID: 16920051}
-  player: {fileID: 0}
+  player: {fileID: 862981087}
   updateDistance: 50
 --- !u!114 &862981081
 MonoBehaviour:
