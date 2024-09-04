@@ -49,25 +49,6 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // プレイヤーの進行距離を確認
-        float distanceTraveled = player.position.x - currentCheckpoint.x;
-
-        // 一定距離進んだらリスポーン地点を更新
-        if (distanceTraveled >= updateDistance)
-        {
-            UpdateCheckpoint();
-        }
-    }
-
-    // リスポーン地点を更新する関数
-    void UpdateCheckpoint()
-    {
-        currentCheckpoint = player.position;
-        Debug.Log("Checkpoint updated to: " + currentCheckpoint);
-    }
-
     // プレイヤーをリスポーンさせる関数
     public void RespawnPlayer()
     {
