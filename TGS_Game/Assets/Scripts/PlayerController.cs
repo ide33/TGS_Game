@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce = 10f; // ジャンプの強さ
     private int jumpCount = 0; // ジャンプの回数
-    private bool isGrounded = false; // 地面にいるかどうか
     private Rigidbody2D rb;
     public float speed = 5f; // プレイヤーの速度
     private SpriteRenderer spriteRenderer;
@@ -22,17 +21,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //ADキーによる左右移動
-        float move = 0;
-        if (Input.GetKey(KeyCode.A))
+        // 左右移動　Input.GetAxis("Horizontal")は-1.0から1.0までの値を返す
+        float horizontal = Input.GetAxis("Horizontal");  // 左右移動の入力を変数horizontalに入れる
+        transform.Translate(Vector2.right * horizontal * speed * Time.deltaTime);  // horizontalで取得した方向に速度を掛ける
+
+        if(horizontal > 0)
         {
-            move = -1;
+            spriteRenderer.flipX = false;  //スプライトを通常の向きで表示
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (horizontal < 0)
         {
-            move = 1;
+            spriteRenderer.flipX = true;  //スプライトを左右反転した向きで表示
         }
-        transform.Translate(Vector2.right * move * speed * Time.deltaTime);
 
         // スペースキーが押され、ジャンプ回数が2未満の場合ジャンプ
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
@@ -46,32 +46,9 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 地面に着地したらジャンプ回数をリセット
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Scaffold"))
         {
             jumpCount = 0;
-            isGrounded = true;
-        }
-
-        // 足場に着地したらジャンプ回数をリセット
-        if (collision.gameObject.CompareTag("Scaffold"))
-        {
-            jumpCount = 0;
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // 地面から離れたら地面にいないことを設定
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-
-        // 足場から離れたら地面にいないことを設定
-        if (collision.gameObject.CompareTag("Scaffold"))
-        {
-            isGrounded = false;
         }
     }
 }
