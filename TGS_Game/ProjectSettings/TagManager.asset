@@ -9,6 +9,10 @@ TagManager:
   - River
   - Scaffold
   - GM
+  - Normal
+  - Clear
+  - GameOver
+  - Start
   layers:
   - Default
   - TransparentFX
