@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackController : MonoBehaviour
+public class PlayerAttackController : MonoBehaviour
 {
-    public Transform attackPoint; // 攻撃の発生地点
-    public float attackRange = 2.0f; // 攻撃の範囲
-    public LayerMask enemyLayers; // 攻撃が当たる敵のレイヤー
-    public int attackDamage = 10; // 攻撃力
-    public AudioClip attackSound;  //攻撃時の効果音
+    [SerializeField] private Transform attackPoint; // 攻撃の発生地点
+    [SerializeField] private float attackRange = 2.0f; // 攻撃の範囲
+    [SerializeField] private LayerMask enemyLayers; // 攻撃が当たる敵のレイヤー
+    [SerializeField] private int attackDamage = 10; // 攻撃力
+    [SerializeField] private AudioClip attackSound;  //攻撃時の効果音
     private AudioSource audioSource;
 
     void Start()

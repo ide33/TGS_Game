@@ -508,10 +508,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 848967570}
-  attackRange: 1.5
+  attackRange: 2
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   attackDamage: 10
   attackSound: {fileID: 8300000, guid: 7115edd0fa573364089f773b746482f6, type: 3}
 --- !u!114 &862981083

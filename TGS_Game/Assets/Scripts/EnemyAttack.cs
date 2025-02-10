@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public int attackDamage = 10;
+    [SerializeField] private int attackDamage = 10;
 
     public bool IsAttacking { get; private set; } // 攻撃中かどうかを判定するフラグ
 

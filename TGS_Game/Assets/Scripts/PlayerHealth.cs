@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;  // 最大HP
-    public int currentHealth;   // 現在のHP
-    public Slider healthSlider;
-    public AudioClip hitSound;   //ダメージ効果音
+    [SerializeField] private int maxHealth = 100;  // 最大HP
+    [SerializeField] private int currentHealth;   // 現在のHP
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private AudioClip hitSound;   //ダメージ効果音
     private AudioSource audioSource;   
 
     void Start()
