@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private int attackDamage = 10;  // 攻撃力
+    [SerializeField] private float attackRange =1.5f;  // 攻撃範囲
     [SerializeField] private float delayTime = 1.0f;  // 待機時間
+    [SerializeField] private float attackCooldown = 2.0f;  // クールタイム
+
+    private Transform target;  // プレイヤーのTransformを保持
     private float lastAttackTime;  // 最後の攻撃の時間
     private bool isAttackIdle = false;  // 攻撃待機かどうか
-    public bool IsAttacking { get; private set; } // 攻撃中かどうかを判定するフラグ
+
+    void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(player != null)
+        {
+            target = player.transform;  // プレイヤーのTransformを取得
+        }
+    }
 
     void Update()
     {
-        // isAttackIdleがtrueの場合、一定時間後に
-        if(isAttackIdle && Time.time - lastAttackTime >= delayTime)
+
+        if(target == null) return; // プレイヤー見つからない場合はなにもしない
         {
-            
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // プレイヤーを検知し、攻撃準備を開始
-            isAttackIdle = true;
-            lastAttackTime = Time.time;
+            float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+
+            if(distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackCooldown)
+            {
+                AttackAction();
+            }
         }
     }
 
-    // private void AttackAction()
-    // {
-    //     if()
-    //     {
-            
-    //     }
-    // }
-    public void CancelAttack()
+    public void AttackAction()
     {
-        // 攻撃をキャンセルする処理
-        IsAttacking = false;
+        
     }
 }
