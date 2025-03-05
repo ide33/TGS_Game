@@ -451,7 +451,6 @@ GameObject:
   - component: {fileID: 862981084}
   - component: {fileID: 862981083}
   - component: {fileID: 862981082}
-  - component: {fileID: 862981081}
   - component: {fileID: 862981080}
   - component: {fileID: 862981089}
   - component: {fileID: 862981088}
@@ -479,22 +478,6 @@ MonoBehaviour:
   respawnPoint: {fileID: 862981087}
   player: {fileID: 862981087}
   updateDistance: 50
---- !u!114 &862981081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862981079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe2f5a22fbabc6489a356e1c8ea3152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  healthSlider: {fileID: 16920052}
-  hitSound: {fileID: 8300000, guid: 4686fbedf4092184d8420a229d5cad9a, type: 3}
 --- !u!114 &862981082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,6 +511,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 7
   speed: 6
+  maxHealth: 100
+  healthSlider: {fileID: 16920052}
+  hitSound: {fileID: 8300000, guid: 4686fbedf4092184d8420a229d5cad9a, type: 3}
+  currentHealth: 0
 --- !u!61 &862981084
 BoxCollider2D:
   m_ObjectHideFlags: 0

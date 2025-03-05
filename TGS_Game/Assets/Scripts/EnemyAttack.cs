@@ -11,11 +11,13 @@ public class EnemyAttack : MonoBehaviour
 
     private Transform target;  // プレイヤーのTransformを保持
     private float lastAttackTime;  // 最後の攻撃の時間
-    private bool isAttackIdle = false;  // 攻撃待機かどうか
+    // private bool isAttackIdle = false;  // 攻撃待機かどうか
+    private PlayerAttackController playerAttack;
+    private PlayerController playerHealth;
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");  // プレイヤーオブジェクトを取得
         if(player != null)
         {
             target = player.transform;  // プレイヤーのTransformを取得
@@ -36,8 +38,21 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    public void AttackAction()
+    void AttackAction()
     {
-        
+        if(target == null) return;  // プレイヤーが見つからなければ何もしない
+        playerAttack = GetComponent<PlayerAttackController>();  // インスタンスを取得
+        if(playerAttack != null && playerAttack.IsAttacking)  // プレイヤーが攻撃中かどうか
+        {
+            return;
+        }
+        else
+        {
+            playerHealth = target.GetComponent<PlayerController>();
+            if(playerHealth != null)
+            {
+                playerHealth.currentHealth -= attackDamage;  // プレイヤーのhpを減らす
+            }
+        }
     }
 }

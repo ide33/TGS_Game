@@ -9,6 +9,9 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers; // 攻撃が当たる敵のレイヤー
     [SerializeField] private int attackDamage = 10; // 攻撃力
     [SerializeField] private AudioClip attackSound;  //攻撃時の効果音
+
+    public bool IsAttacking { get; private set; } // 他のスクリプトから参照できるが変更はできない
+
     private AudioSource audioSource;
 
     void Start()
@@ -27,6 +30,8 @@ public class PlayerAttackController : MonoBehaviour
 
     void Attack()
     {
+        IsAttacking = true;  // 攻撃のフラグをtrue
+
         //攻撃するときに呼び出されるメソッド
         PlayAttackSound();
 
@@ -44,14 +49,15 @@ public class PlayerAttackController : MonoBehaviour
                     enemyHealth.TakeDamage(attackDamage);
 
                     // 攻撃判定を相殺する処理
-                    EnemyAttack enemyAttack = enemy.GetComponent<EnemyAttack>();
-                    if (enemyAttack != null && enemyAttack.IsAttacking)
-                    {
-                        enemyAttack.CancelAttack();
-                    }
+                    // EnemyAttack enemyAttack = enemy.GetComponent<EnemyAttack>();
+                    // if (enemyAttack != null && enemyAttack.IsAttacking)
+                    // {
+                    //     enemyAttack.CancelAttack();
+                    // }
                 }
             }
         }
+        IsAttacking = false;  // 攻撃が終わった
     }
 
     void PlayAttackSound()

@@ -6,7 +6,7 @@ public class PlayerRespawn : MonoBehaviour
 {
     public Vector3 respawnPosition;  // リスポーン位置
     public int respawnDamage = 20;   // リスポーン時のダメージ量
-    private PlayerHealth playerHealth;  // プレイヤーのHP管理スクリプトへの参照
+    private PlayerController playerHealth;  // プレイヤーのHP管理スクリプトへの参照
     public Transform respawnPoint;    // リスポーン地点
     private StageGenerator stageGenerator;  // ステージ生成スクリプトの参照
     public Transform player;           // プレイヤーのTransform
@@ -19,7 +19,7 @@ public class PlayerRespawn : MonoBehaviour
         respawnPosition = transform.position;
 
         // PlayerHealthスクリプトへの参照を取得
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = GetComponent<PlayerController>();
 
         // StageGeneratorスクリプトを探して参照を保持
         stageGenerator = FindObjectOfType<StageGenerator>();
@@ -62,7 +62,7 @@ public class PlayerRespawn : MonoBehaviour
         transform.position = respawnPosition;
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(respawnDamage);
+            playerHealth.currentHealth -= respawnDamage;
         }
     }
 }
