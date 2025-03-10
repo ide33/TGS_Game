@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private int attackDamage = 10;  // 攻撃力
-    [SerializeField] private float attackRange =1.5f;  // 攻撃範囲
+    [SerializeField] private float attackRange = 1.5f;  // 攻撃範囲
     [SerializeField] private float delayTime = 1.0f;  // 待機時間
     [SerializeField] private float attackCooldown = 2.0f;  // クールタイム
 
@@ -18,7 +18,7 @@ public class EnemyAttack : MonoBehaviour
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");  // プレイヤーオブジェクトを取得
-        if(player != null)
+        if (player != null)
         {
             target = player.transform;  // プレイヤーのTransformを取得
         }
@@ -27,32 +27,32 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
 
-        if(target == null) return; // プレイヤー見つからない場合はなにもしない
-        {
-            float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+        if (target == null) return; // プレイヤー見つからない場合はなにもしない
 
-            if(distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackCooldown)
-            {
-                AttackAction();
-            }
+        float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+
+        if (distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackCooldown)
+        {
+            AttackAction();
         }
+
     }
 
     void AttackAction()
     {
-        if(target == null) return;  // プレイヤーが見つからなければ何もしない
-        playerAttack = GetComponent<PlayerAttackController>();  // インスタンスを取得
-        if(playerAttack != null && playerAttack.IsAttacking)  // プレイヤーが攻撃中かどうか
+        if (target == null) return;  // プレイヤーが見つからなければ何もしない
+        playerAttack = target.GetComponent<PlayerAttackController>();  // インスタンスを取得
+        if (playerAttack != null && playerAttack.IsAttacking)  // プレイヤーが攻撃中かどうか
         {
             return;
         }
         else
         {
             playerHealth = target.GetComponent<PlayerController>();
-            if(playerHealth != null)
-            {
-                playerHealth.currentHealth -= attackDamage;  // プレイヤーのhpを減らす
-            }
+            // if (playerHealth != null)
+            // {
+            //     playerHealth.TakeDamege(attackDamage);  // プレイヤーのhpを減らす
+            // }
         }
     }
 }

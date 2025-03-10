@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
 
-    public int currentHealth;   // 現在のHP
+    public int currentHealth { get; private set; }   // 現在のHP
 
     void Start()
     {
@@ -72,14 +72,20 @@ public class PlayerController : MonoBehaviour
     }
 
     // HPを減らす関数
-    void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        int previousHealth = currentHealth;  // 変更前のhpを保存
+        currentHealth -= damage;
+        audioSource.PlayOneShot(hitSound);  // ヒット音
+        healthSlider.value = currentHealth;  // HPゲージを更新する関数
 
-        if (previousHealth > currentHealth)  // 現在のhpが直前のhpより減った場合
+        if (currentHealth < 0)  // hpが0より下回らないように制限
         {
-            audioSource.PlayOneShot(hitSound);  // ヒット音
-            healthSlider.value = currentHealth;  // HPゲージを更新する関数
+            currentHealth = 0;
+        }
+
+        if (currentHealth == 0)
+        {
+            GameOver();
         }
     }
 
